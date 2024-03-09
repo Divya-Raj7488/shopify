@@ -1,27 +1,58 @@
-/* .downloadBtn:hover{
-background-color: ;
-} */
 .downloadBtn {
-  /* width: ; */
   height: 2rem;
   border: rgb(239, 235, 235) 2px solid;
   border-radius: 0.5rem;
   background: #fff;
+  letter-spacing: 0.1rem;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1); /* Box shadow for lift effect */
-  transition: box-shadow 0.3s ease;
+  transition: 0.9s ease;
 }
 
 .downloadBtn:hover {
   background-color: rgb(142, 101, 51);
   color: #fff;
-  transition: border-color 0.3s ease;
+  letter-spacing: 0.2rem;
+  box-shadow: 0 0 2rem var(#926f34);
 }
-.colorBtn{
-    width: 6rem;
-    height: 2.5rem;
-    background: #fff;
-    border: 1px #e2dfdf solid;
-    border-radius: 1rem;
-    /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
-    font-size: 1rem;
+.colorBtn {
+  width: 6rem;
+  height: 2.5rem;
+  background: #fff;
+  border: 1px #e2dfdf solid;
+  border-radius: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  background-color: #ded7d7;
+  transition: 0.5s;
+  padding: 0px 0.2rem;
+}
+.colorBtn:hover {
+  letter-spacing: 0.2rem;
+  color: #fff;
+  background: #926f34;
+  box-shadow: 0 0 2rem var(#926f34);
+}
+.loader{
+  display: none;
+}
+.loaderDiv {
+  width: 39%;
+  height: 2rem;
+  border: 1px solid gray;
+  position: relative;
+  left: -20%;
+  border-radius: 0.5rem;
+  background-size: 200% 100%;
+  background: linear-gradient(to right, white, #926f34);
+  background-size: 200% 100%;
+  animation: fillLinear 3s linear forwards;
+}
+@keyframes fillLinear {
+  0% {
+    background-position: left;
+  }
+  100% {
+    background-position: right;
+  }
 }

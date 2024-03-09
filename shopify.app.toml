@@ -2,7 +2,7 @@
 
 client_id = "544deab1beb80bb01e5bb684a1b5fa2b"
 name = "luxury-negotiation-app"
-application_url = "https://cvs-instructions-buffer-blast.trycloudflare.com"
+application_url = "https://cottage-beijing-package-strange.trycloudflare.com"
 embedded = true
 
 [build]
@@ -16,9 +16,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://cvs-instructions-buffer-blast.trycloudflare.com/auth/callback",
-  "https://cvs-instructions-buffer-blast.trycloudflare.com/auth/shopify/callback",
-  "https://cvs-instructions-buffer-blast.trycloudflare.com/api/auth/callback"
+  "https://cottage-beijing-package-strange.trycloudflare.com/auth/callback",
+  "https://cottage-beijing-package-strange.trycloudflare.com/auth/shopify/callback",
+  "https://cottage-beijing-package-strange.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

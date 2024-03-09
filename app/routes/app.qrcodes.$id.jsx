@@ -81,6 +81,7 @@ export default function QRCodeForm() {
   const [showModal, setShowModal] = useState(false);
   const [selectedColor, setSelectedColor] = useState("");
   const [downloadTimeout, setDownloadTimeout] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const colorArray = ["Green", "Yellow", "Blue", "Red"];
   const errors = useActionData()?.errors || {};
@@ -130,11 +131,13 @@ export default function QRCodeForm() {
     link.click();
     document.body.removeChild(link);
     setShowModal(false);
+    setIsLoading(false)
   };
 
   const cancelDownload = () => {
     clearTimeout(downloadTimeout);
     setSelectedColor("");
+    setIsLoading(false)
     setShowModal(false);
     shopify.toast.show("Download cancelled", {
       duration: 5000,
@@ -160,6 +163,7 @@ export default function QRCodeForm() {
 
   const handleColorBtn = (color) => {
     setSelectedColor(color);
+    setIsLoading(true)
     const timeout = setTimeout(downloadImage, 3000);
     setDownloadTimeout(timeout);
   };
@@ -287,10 +291,6 @@ export default function QRCodeForm() {
                 open={showModal}
                 onClose={() => setShowModal(false)}
                 title="Select an option"
-                // primaryAction={{
-                //   content: "Cancel",
-                //   onAction: () => setShowModal(false),
-                // }}
               >
                 <Modal.Section gap="300">
                   <div
@@ -307,7 +307,6 @@ export default function QRCodeForm() {
                       {colorArray.map((color) => {
                         return (
                           <button
-                            // style={{background:color}}
                             className="colorBtn"
                             onClick={() => {
                               handleColorBtn(color);
@@ -319,7 +318,19 @@ export default function QRCodeForm() {
                       })}
                     </InlineStack>
                   </div>
-                  <div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {/* {isLoading===true? */}
+                    <div
+                      className={isLoading === true ? "loaderDiv" : "loader"}
+                    ></div>
+                    {/* :} */}
+                    
                     <InlineStack align="center">
                       <Button onClick={cancelDownload} variant="primary">
                         Cancel
