@@ -1,3 +1,27 @@
-.downloadBtn:hover{
-background-color: white;
+/* .downloadBtn:hover{
+background-color: ;
+} */
+.downloadBtn {
+  /* width: ; */
+  height: 2rem;
+  border: rgb(239, 235, 235) 2px solid;
+  border-radius: 0.5rem;
+  background: #fff;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1); /* Box shadow for lift effect */
+  transition: box-shadow 0.3s ease;
+}
+
+.downloadBtn:hover {
+  background-color: rgb(142, 101, 51);
+  color: #fff;
+  transition: border-color 0.3s ease;
+}
+.colorBtn{
+    width: 6rem;
+    height: 2.5rem;
+    background: #fff;
+    border: 1px #e2dfdf solid;
+    border-radius: 1rem;
+    /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+    font-size: 1rem;
 }

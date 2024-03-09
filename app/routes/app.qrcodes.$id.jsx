@@ -26,9 +26,11 @@ import {
   PageActions,
   Modal,
   ButtonGroup,
+  InlineGrid,
+  Grid,
 } from "@shopify/polaris";
 import { ImageIcon } from "@shopify/polaris-icons";
-import "../styles/btnAnimation.css"
+import "../styles/btnAnimation.css";
 
 import db from "../db.server";
 import { getQRCode, validateQRCode } from "../models/QRCode.server";
@@ -79,8 +81,6 @@ export default function QRCodeForm() {
   const [showModal, setShowModal] = useState(false);
   const [selectedColor, setSelectedColor] = useState("");
   const [downloadTimeout, setDownloadTimeout] = useState(null);
-  const [isHovered, setIsHovered] = useState(false);
-
 
   const colorArray = ["Green", "Yellow", "Blue", "Red"];
   const errors = useActionData()?.errors || {};
@@ -129,16 +129,16 @@ export default function QRCodeForm() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    setShowModal(false)
+    setShowModal(false);
   };
 
   const cancelDownload = () => {
     clearTimeout(downloadTimeout);
     setSelectedColor("");
     setShowModal(false);
-      shopify.toast.show("Download cancelled", {
-        duration: 5000,
-      });
+    shopify.toast.show("Download cancelled", {
+      duration: 5000,
+    });
   };
 
   function handleSave() {
@@ -275,41 +275,57 @@ export default function QRCodeForm() {
               </EmptyState>
             )}
             <BlockStack gap="300">
-              <Button
+              <button
                 disabled={!qrCode?.image}
                 variant="primary"
                 onClick={showColorSelectorPrompt}
+                className="downloadBtn"
               >
                 Download
-              </Button>
+              </button>
               <Modal
                 open={showModal}
                 onClose={() => setShowModal(false)}
                 title="Select an option"
-                primaryAction={{
-                  content: "Cancel",
-                  onAction: () => setShowModal(false),
-                }}
+                // primaryAction={{
+                //   content: "Cancel",
+                //   onAction: () => setShowModal(false),
+                // }}
               >
-                <Modal.Section>
-                  <BlockStack distribution="fillEvenly">
-                    <InlineStack>
+                <Modal.Section gap="300">
+                  <div
+                    style={{
+                      marginTop: "1rem",
+                      marginBottom: "2rem",
+                    }}
+                  >
+                    <InlineStack
+                      gap="800"
+                      marginInlineEnd="10"
+                      align="space-evenly"
+                    >
                       {colorArray.map((color) => {
                         return (
-                          <Button
+                          <button
+                            // style={{background:color}}
+                            className="colorBtn"
                             onClick={() => {
                               handleColorBtn(color);
                             }}
                           >
                             {color}
-                          </Button>
+                          </button>
                         );
                       })}
                     </InlineStack>
-                  </BlockStack>
-                  <BlockStack>
-                    <Button onClick={cancelDownload}>Cancel</Button>
-                  </BlockStack>
+                  </div>
+                  <div>
+                    <InlineStack align="center">
+                      <Button onClick={cancelDownload} variant="primary">
+                        Cancel
+                      </Button>
+                    </InlineStack>
+                  </div>
                 </Modal.Section>
               </Modal>
               <Button
