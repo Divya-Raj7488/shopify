@@ -24,6 +24,8 @@ import {
   Thumbnail,
   BlockStack,
   PageActions,
+  Modal,
+  ButtonGroup,
 } from "@shopify/polaris";
 import { ImageIcon } from "@shopify/polaris-icons";
 
@@ -73,6 +75,10 @@ export async function action({ request, params }) {
 }
 
 export default function QRCodeForm() {
+  const [showModal, setShowModal] = useState(false);
+  const [selectedColor, setSelectedColor] = useState("");
+  const [downloadTimeout, setDownloadTimeout] = useState(null);
+  const colorArray = ["Green", "Yellow", "Blue", "Red"];
   const errors = useActionData()?.errors || {};
 
   const qrCode = useLoaderData();
@@ -110,6 +116,27 @@ export default function QRCodeForm() {
   }
 
   const submit = useSubmit();
+
+  const downloadImage = () => {
+    const imageUrl = qrCode?.image;
+    const link = document.createElement("a");
+    link.href = imageUrl;
+    link.download = `qr_code_image.jpg`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setShowModal(false)
+  };
+
+  const cancelDownload = () => {
+    clearTimeout(downloadTimeout);
+    setSelectedColor("");
+    setShowModal(false);
+      shopify.toast.show("Download cancelled", {
+        duration: 5000,
+      });
+  };
+
   function handleSave() {
     const data = {
       title: formState.title,
@@ -122,6 +149,16 @@ export default function QRCodeForm() {
     setCleanFormState({ ...formState });
     submit(data, { method: "post" });
   }
+
+  const showColorSelectorPrompt = () => {
+    setShowModal(true);
+  };
+
+  const handleColorBtn = (color) => {
+    setSelectedColor(color);
+    const timeout = setTimeout(downloadImage, 3000);
+    setDownloadTimeout(timeout);
+  };
 
   return (
     <Page>
@@ -236,12 +273,42 @@ export default function QRCodeForm() {
             <BlockStack gap="300">
               <Button
                 disabled={!qrCode?.image}
-                url={qrCode?.image}
-                download
                 variant="primary"
+                onClick={showColorSelectorPrompt}
+                //on clicking, we have to show a prompt with 4 colors and a cancel button
               >
                 Download
               </Button>
+              <Modal
+                open={showModal}
+                onClose={() => setShowModal(false)}
+                title="Select an option"
+                primaryAction={{
+                  content: "Cancel",
+                  onAction: () => setShowModal(false),
+                }}
+              >
+                <Modal.Section>
+                  <BlockStack distribution="fillEvenly">
+                    <InlineStack>
+                      {colorArray.map((color) => {
+                        return (
+                          <Button
+                            onClick={() => {
+                              handleColorBtn(color);
+                            }}
+                          >
+                            {color}
+                          </Button>
+                        );
+                      })}
+                    </InlineStack>
+                  </BlockStack>
+                  <BlockStack>
+                    <Button onClick={cancelDownload}>Cancel</Button>
+                  </BlockStack>
+                </Modal.Section>
+              </Modal>
               <Button
                 disabled={!qrCode.id}
                 url={`/qrcodes/${qrCode.id}`}

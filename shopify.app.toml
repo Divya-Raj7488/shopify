@@ -2,7 +2,7 @@
 
 client_id = "544deab1beb80bb01e5bb684a1b5fa2b"
 name = "luxury-negotiation-app"
-application_url = "https://nike-roland-country-maps.trycloudflare.com"
+application_url = "https://services-drama-pc-psi.trycloudflare.com"
 embedded = true
 
 [build]
@@ -16,9 +16,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://nike-roland-country-maps.trycloudflare.com/auth/callback",
-  "https://nike-roland-country-maps.trycloudflare.com/auth/shopify/callback",
-  "https://nike-roland-country-maps.trycloudflare.com/api/auth/callback"
+  "https://services-drama-pc-psi.trycloudflare.com/auth/callback",
+  "https://services-drama-pc-psi.trycloudflare.com/auth/shopify/callback",
+  "https://services-drama-pc-psi.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
