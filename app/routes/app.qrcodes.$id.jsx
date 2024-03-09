@@ -28,6 +28,7 @@ import {
   ButtonGroup,
 } from "@shopify/polaris";
 import { ImageIcon } from "@shopify/polaris-icons";
+import "../styles/btnAnimation.css"
 
 import db from "../db.server";
 import { getQRCode, validateQRCode } from "../models/QRCode.server";
@@ -78,6 +79,9 @@ export default function QRCodeForm() {
   const [showModal, setShowModal] = useState(false);
   const [selectedColor, setSelectedColor] = useState("");
   const [downloadTimeout, setDownloadTimeout] = useState(null);
+  const [isHovered, setIsHovered] = useState(false);
+
+
   const colorArray = ["Green", "Yellow", "Blue", "Red"];
   const errors = useActionData()?.errors || {};
 
@@ -275,7 +279,6 @@ export default function QRCodeForm() {
                 disabled={!qrCode?.image}
                 variant="primary"
                 onClick={showColorSelectorPrompt}
-                //on clicking, we have to show a prompt with 4 colors and a cancel button
               >
                 Download
               </Button>
